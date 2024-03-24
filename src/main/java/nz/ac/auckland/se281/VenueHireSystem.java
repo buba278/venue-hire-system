@@ -68,16 +68,37 @@ public class VenueHireSystem {
     // if empty name
     if (venueName.strip().equals("")) {
       MessageCli.VENUE_NOT_CREATED_EMPTY_NAME.printMessage();
+      return;
     }
 
-    // if invalid number
-    if ()
+    // if capacity not a number
+    try {
+      // if number not positive int (0 exclusive)
+      if (Integer.parseInt(capacityInput) <= 0) {
+        MessageCli.VENUE_NOT_CREATED_INVALID_NUMBER.printMessage("capacity", " positive");
+        return;
+      } 
+    } catch (Exception e) {
+      MessageCli.VENUE_NOT_CREATED_INVALID_NUMBER.printMessage("capacity", "");
+      return;
+    }
+    // if hireFee not a number
+    try {
+      // if number not positive int (0 exclusive)
+      if (Integer.parseInt(hireFeeInput) <= 0) {
+        MessageCli.VENUE_NOT_CREATED_INVALID_NUMBER.printMessage("hire fee", " positive");
+        return;
+      } 
+    } catch (Exception e) {
+      MessageCli.VENUE_NOT_CREATED_INVALID_NUMBER.printMessage("hire fee", "");
+      return;
+    }
 
     // if successful, add it to the arrayList and code set
     // make a new Venue instance
     Venue venue = new Venue(venueName, venueCode, capacityInput, hireFeeInput);
     venues.add(venue);
-    codes.add(venue.getCode());
+    codes.put(venueCode, venueName);
 
     MessageCli.VENUE_SUCCESSFULLY_CREATED.printMessage(venue.getName(), venue.getCode());
   }
