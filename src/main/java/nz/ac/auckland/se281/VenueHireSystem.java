@@ -1,6 +1,7 @@
 package nz.ac.auckland.se281;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.HashSet;
 
 import nz.ac.auckland.se281.Types.CateringType;
@@ -10,8 +11,13 @@ public class VenueHireSystem {
 
   // list of venues 
   private ArrayList<Venue> venues = new ArrayList<Venue>();
+
   // set of used codes
-  private HashSet<String> codes = new HashSet<String>();
+  // private HashSet<String> codes = new HashSet<String>();
+
+  // use a hashmap instead (value pairs to referencevenue) key = code, value = name
+  private HashMap<String, String> codes = new HashMap<String, String>();
+
   // numbers to words for printing
   private final String[] numbers = new String[]{"", "one", "two", "three", "four", "five", "six", "seven", "eight", "nine"}; 
   
@@ -53,25 +59,31 @@ public class VenueHireSystem {
       String venueName, String venueCode, String capacityInput, String hireFeeInput) {
     // TODO implement this method
 
-    // make a new Venue instance
-    Venue venue = new Venue(venueName, venueCode, capacityInput, hireFeeInput);
-
     // if code exists
-    if (codes.contains(venue.getCode())){
-
+    if (codes.containsKey(venueCode)) {
+      MessageCli.VENUE_NOT_CREATED_CODE_EXISTS.printMessage(venueCode, codes.get(venueCode));
+      return;
     }
 
     // if empty name
+    if (venueName.strip().equals("")) {
+      MessageCli.VENUE_NOT_CREATED_EMPTY_NAME.printMessage();
+    }
 
     // if invalid number
+    if ()
 
-    // if successfuladd it to the arrayList
-    // and to codes set
+    // if successful, add it to the arrayList and code set
+    // make a new Venue instance
+    Venue venue = new Venue(venueName, venueCode, capacityInput, hireFeeInput);
     venues.add(venue);
     codes.add(venue.getCode());
+
     MessageCli.VENUE_SUCCESSFULLY_CREATED.printMessage(venue.getName(), venue.getCode());
   }
+
 // 
+
   public void setSystemDate(String dateInput) {
     // TODO implement this method
   }

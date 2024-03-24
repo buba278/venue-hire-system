@@ -10,8 +10,8 @@ public class Venue {
   public Venue(String name, String code, String capacity, String hireFee) {
     this.name = name;
     this.code = code;
-    this.capacity = Integer.valueOf(capacity);
-    this.hireFee = Integer.valueOf(hireFee);
+    this.capacity = Integer.parseInt(capacity);
+    this.hireFee = Integer.parseInt(hireFee);
   }
 
   public String getName() {
