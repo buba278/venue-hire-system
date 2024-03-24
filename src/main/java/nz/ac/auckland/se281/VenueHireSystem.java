@@ -14,7 +14,7 @@ public class VenueHireSystem {
     // TODO implement this method
     // Check if the venue list is empty
     if (venues.size() == 0) {
-      MessageCli.PRINT_BOOKINGS_VENUE_NOT_FOUND.printMessage();
+      MessageCli.NO_VENUES.printMessage();
       return;
     }
   }
