@@ -9,9 +9,9 @@ public class Venue {
   private int hireFee;
 
   // keep track of days booked, to what booking
-  HashMap<String, Booking> bookingDates = new HashMap<String, Booking>();
+  private HashMap<String, Booking> bookingDates = new HashMap<String, Booking>();
   // keep track of references to bookings
-  HashMap<String, Booking> bookingReferences = new HashMap<String, Booking>();
+  private HashMap<String, Booking> bookingReferences = new HashMap<String, Booking>();
 
   // Handle paramters as strings due to HireSystem formatting
   public Venue(String name, String code, String capacity, String hireFee) {
@@ -35,5 +35,19 @@ public class Venue {
   }
 
   // booking methods
+  public boolean checkDateAvailability(String date) {
+    return bookingDates.containsKey(date);
+  }
+  public Booking getDateBooking(String date) {
+    return bookingDates.get(date);
+  }
+  public Booking getReferenceBooking(String reference) {
+    return bookingReferences.get(reference);
+  }
+  public void addBooking(String venueCode, String requestedDate, String email, String attendees, String reference) {
+    Booking booking = new Booking(venueCode, requestedDate, email, attendees);
+    bookingDates.put(requestedDate, booking);
+    bookingReferences.put(reference, booking);
+  }
 
 }

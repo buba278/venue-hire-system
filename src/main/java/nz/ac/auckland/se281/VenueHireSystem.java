@@ -149,11 +149,15 @@ public class VenueHireSystem {
 
     // quantify dates in 0 = days, 1 = month, 2 = year
     String[] dateParts = requestDate.split("/");
+    // magnify from year to day
+    
 
     // venue code exist, date available, date not in past (today or later)
-    if (!codes.containsKey(venueCode) || false) {
+    if (!codes.containsKey(venueCode) || codes.get(venueCode).checkDateAvailability(requestDate)) {
       return;
     }
+
+    if ()
 
     //
 

@@ -1,6 +1,7 @@
 package nz.ac.auckland.se281;
 
 public class Booking {
+  private String reference;
   private String venueCode;
   private String requestedDate;
   private String email;
