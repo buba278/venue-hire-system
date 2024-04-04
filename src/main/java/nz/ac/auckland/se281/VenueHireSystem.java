@@ -8,20 +8,23 @@ import nz.ac.auckland.se281.Types.FloralType;
 
 public class VenueHireSystem {
 
-  // list of venues 
+  // list of venues
   private ArrayList<Venue> venues = new ArrayList<Venue>();
 
   // set of used codes
-  // use a hashmap instead (value pairs to referencevenue) key = code, value = name
+  // use a hashmap instead (value pairs to referencevenue) key = code, value =
+  // name
   private HashMap<String, String> codes = new HashMap<String, String>();
 
   // numbers to words for printing
-  private final String[] numbers = new String[]{"", "one", "two", "three", "four", "five", "six", "seven", "eight", "nine"}; 
+  private final String[] numbers = new String[] { "", "one", "two", "three", "four", "five", "six", "seven", "eight",
+      "nine" };
 
   // setting up the system date variable
-  private String systemDate; 
-  
-  public VenueHireSystem() {}
+  private String systemDate;
+
+  public VenueHireSystem() {
+  }
 
   public void printVenues() {
     // TODO implement this method
@@ -35,14 +38,16 @@ public class VenueHireSystem {
     else if (venues.size() == 1) {
       MessageCli.NUMBER_VENUES.printMessage("is", this.numbers[1], "");
       Venue venue = venues.get(0);
-      MessageCli.VENUE_ENTRY.printMessage(venue.getName(), venue.getCode(), String.valueOf(venue.getCapacity()), String.valueOf(venue.getHireFee()));
+      MessageCli.VENUE_ENTRY.printMessage(venue.getName(), venue.getCode(), String.valueOf(venue.getCapacity()),
+          String.valueOf(venue.getHireFee()));
     }
 
     // less than 10 entries
     else if (venues.size() < 10) {
       MessageCli.NUMBER_VENUES.printMessage("are", this.numbers[venues.size()], "s");
       for (Venue i : venues) {
-        MessageCli.VENUE_ENTRY.printMessage(i.getName(), i.getCode(), String.valueOf(i.getCapacity()), String.valueOf(i.getHireFee()));
+        MessageCli.VENUE_ENTRY.printMessage(i.getName(), i.getCode(), String.valueOf(i.getCapacity()),
+            String.valueOf(i.getHireFee()));
       }
     }
 
@@ -50,7 +55,8 @@ public class VenueHireSystem {
     else if (venues.size() >= 10) {
       MessageCli.NUMBER_VENUES.printMessage("are", String.valueOf(venues.size()), "s");
       for (Venue i : venues) {
-        MessageCli.VENUE_ENTRY.printMessage(i.getName(), i.getCode(), String.valueOf(i.getCapacity()), String.valueOf(i.getHireFee()));
+        MessageCli.VENUE_ENTRY.printMessage(i.getName(), i.getCode(), String.valueOf(i.getCapacity()),
+            String.valueOf(i.getHireFee()));
       }
     }
   }
@@ -77,7 +83,7 @@ public class VenueHireSystem {
       if (Integer.parseInt(capacityInput) <= 0) {
         MessageCli.VENUE_NOT_CREATED_INVALID_NUMBER.printMessage("capacity", " positive");
         return;
-      } 
+      }
     } catch (Exception e) {
       MessageCli.VENUE_NOT_CREATED_INVALID_NUMBER.printMessage("capacity", "");
       return;
@@ -88,7 +94,7 @@ public class VenueHireSystem {
       if (Integer.parseInt(hireFeeInput) <= 0) {
         MessageCli.VENUE_NOT_CREATED_INVALID_NUMBER.printMessage("hire fee", " positive");
         return;
-      } 
+      }
     } catch (Exception e) {
       MessageCli.VENUE_NOT_CREATED_INVALID_NUMBER.printMessage("hire fee", "");
       return;
@@ -103,19 +109,18 @@ public class VenueHireSystem {
     MessageCli.VENUE_SUCCESSFULLY_CREATED.printMessage(venue.getName(), venue.getCode());
   }
 
-// 
+  //
 
   public void setSystemDate(String dateInput) {
     // TODO implement this method
     this.systemDate = dateInput;
     // print confirmation
     MessageCli.DATE_SET.printMessage(systemDate);
-
-    return;
   }
 
   public void printSystemDate() {
     // TODO implement this method
+    MessageCli.CURRENT_DATE.printMessage(this.systemDate);
   }
 
   public void makeBooking(String[] options) {
