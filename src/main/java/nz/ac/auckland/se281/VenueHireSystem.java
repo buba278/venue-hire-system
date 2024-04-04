@@ -14,7 +14,7 @@ public class VenueHireSystem {
   // set of used codes
   // use a hashmap instead (value pairs to referencevenue) key = code, value =
   // name
-  private HashMap<String, String> codes = new HashMap<String, String>();
+  private HashMap<String, Venue> codes = new HashMap<String, Venue>();
 
   // numbers to words for printing
   private final String[] numbers = new String[] { "", "one", "two", "three", "four", "five", "six", "seven", "eight",
@@ -67,7 +67,7 @@ public class VenueHireSystem {
 
     // if code exists
     if (codes.containsKey(venueCode)) {
-      MessageCli.VENUE_NOT_CREATED_CODE_EXISTS.printMessage(venueCode, codes.get(venueCode));
+      MessageCli.VENUE_NOT_CREATED_CODE_EXISTS.printMessage(venueCode, codes.get(venueCode).getName());
       return;
     }
 
@@ -104,7 +104,7 @@ public class VenueHireSystem {
     // make a new Venue instance
     Venue venue = new Venue(venueName, venueCode, capacityInput, hireFeeInput);
     venues.add(venue);
-    codes.put(venueCode, venueName);
+    codes.put(venueCode, venue);
 
     MessageCli.VENUE_SUCCESSFULLY_CREATED.printMessage(venue.getName(), venue.getCode());
   }
@@ -122,8 +122,7 @@ public class VenueHireSystem {
     // TODO implement this method
     if (systemDate.trim().equals("")) {
       MessageCli.CURRENT_DATE.printMessage("not set");
-    }
-    else {
+    } else {
       MessageCli.CURRENT_DATE.printMessage(this.systemDate);
     }
   }
@@ -148,18 +147,18 @@ public class VenueHireSystem {
       return;
     }
 
-    //quantify dates in 0 = days, 1 = month, 2 = year
+    // quantify dates in 0 = days, 1 = month, 2 = year
     String[] dateParts = requestDate.split("/");
-    
+
     // venue code exist, date available, date not in past (today or later)
-    if (!codes.containsKey(venueCode) || false ) {
+    if (!codes.containsKey(venueCode) || false) {
       return;
     }
 
     //
 
     // Succesful booking
-    MessageCli.MAKE_BOOKING_SUCCESSFUL.printMessage(bookingRef, codes.get(venueCode), requestDate, attendees);
+    MessageCli.MAKE_BOOKING_SUCCESSFUL.printMessage(bookingRef, codes.get(venueCode).getName(), requestDate, attendees);
 
   }
 
