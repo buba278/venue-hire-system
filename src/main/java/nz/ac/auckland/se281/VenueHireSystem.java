@@ -161,8 +161,10 @@ public class VenueHireSystem {
     }
     // date available
     if (venue.checkDateAvailability(requestDate)) {
+      MessageCli.BOOKING_NOT_MADE_VENUE_ALREADY_BOOKED.printMessage(venue.getName(), requestDate);
       return;
     }
+
     // quantify dates in 0 = days, 1 = month, 2 = year
     String[] dateParts = requestDate.split("/");
     // magnify from year to day for sum value
@@ -172,6 +174,7 @@ public class VenueHireSystem {
     int currentDateSum = (Integer.valueOf(currentDateParts[2]) * 100) + (Integer.valueOf(currentDateParts[1]) * 10) + Integer.valueOf(currentDateParts[0]);
     // date is today or later than current date
     if (dateSum < currentDateSum) {
+      MessageCli.BOOKING_NOT_MADE_PAST_DATE.printMessage(requestDate, systemDate);
       return;
     } 
 
