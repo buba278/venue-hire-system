@@ -129,7 +129,38 @@ public class VenueHireSystem {
   }
 
   public void makeBooking(String[] options) {
+    // takes in code, date, email, attendee count
+    // assume correct formats for all of these
     // TODO implement this method
+
+    // options split
+    String venueCode = options[0];
+    String requestDate = options[1];
+    String email = options[2];
+    String attendees = options[3];
+
+    String bookingRef = BookingReferenceGenerator.generateBookingReference();
+
+    // pre checks
+
+    // date set, and one venue in system
+    if (systemDate.trim().equals("") || venues.size() == 0) {
+      return;
+    }
+
+    //quantify dates in 0 = days, 1 = month, 2 = year
+    String[] dateParts = requestDate.split("/");
+    
+    // venue code exist, date available, date not in past (today or later)
+    if (!codes.containsKey(venueCode) || false ) {
+      return;
+    }
+
+    //
+
+    // Succesful booking
+    MessageCli.MAKE_BOOKING_SUCCESSFUL.printMessage(bookingRef, codes.get(venueCode), requestDate, attendees);
+
   }
 
   public void printBookings(String venueCode) {
