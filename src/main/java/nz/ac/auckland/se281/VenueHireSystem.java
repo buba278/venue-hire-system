@@ -21,7 +21,7 @@ public class VenueHireSystem {
       "nine" };
 
   // setting up the system date variable
-  private String systemDate;
+  private String systemDate = "";
 
   public VenueHireSystem() {
   }
@@ -120,7 +120,12 @@ public class VenueHireSystem {
 
   public void printSystemDate() {
     // TODO implement this method
-    MessageCli.CURRENT_DATE.printMessage(this.systemDate);
+    if (systemDate.trim().equals("")) {
+      MessageCli.CURRENT_DATE.printMessage("not set");
+    }
+    else {
+      MessageCli.CURRENT_DATE.printMessage(this.systemDate);
+    }
   }
 
   public void makeBooking(String[] options) {
