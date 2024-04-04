@@ -139,8 +139,10 @@ public class VenueHireSystem {
     String attendees = options[3];
 
     String bookingRef = BookingReferenceGenerator.generateBookingReference();
+    Venue venue = codes.get(venueCode);
 
-    // pre checks
+
+    // PRE CHECKS
 
     // date set, and one venue in system
     if (systemDate.trim().equals("") || venues.size() == 0) {
@@ -148,7 +150,7 @@ public class VenueHireSystem {
     }
 
     // venue code exist, date available, date not in past (today or later)
-    if (!codes.containsKey(venueCode) || codes.get(venueCode).checkDateAvailability(requestDate)) {
+    if (!codes.containsKey(venueCode) || venue.checkDateAvailability(requestDate)) {
       return;
     }
 
@@ -156,7 +158,6 @@ public class VenueHireSystem {
     String[] dateParts = requestDate.split("/");
     // magnify from year to day for sum value
     int dateSum = (Integer.valueOf(dateParts[2]) * 100) + (Integer.valueOf(dateParts[1]) * 10) + Integer.valueOf(dateParts[0]);
-
     // higher sum = later
     String[] currentDateParts = requestDate.split("/");
     int currentDateSum = (Integer.valueOf(currentDateParts[2]) * 100) + (Integer.valueOf(currentDateParts[1]) * 10) + Integer.valueOf(currentDateParts[0]);
@@ -165,9 +166,19 @@ public class VenueHireSystem {
       return;
     } 
 
-    // Succesful booking
-    MessageCli.MAKE_BOOKING_SUCCESSFUL.printMessage(bookingRef, codes.get(venueCode).getName(), requestDate, attendees);
-    codes.get(venueCode).addBooking(venueCode, requestDate, email, attendees, bookingRef);
+    // NON IDEAL CHECKS
+    if ((Integer.valueOf(attendees) / venue.getCapacity()) < 0.25) {
+      int newAttendees = (int)(venue.getCapacity() * 0.25);
+      MessageCli.BOOKING_ATTENDEES_ADJUSTED.printMessage(attendees, String.valueOf(newAttendees), String.valueOf(venue.getCapacity()));
+    }
+    else if ((Integer.valueOf(attendees) / venue.getCapacity()) > 1.0) {
+      int newAttendees = venue.getCapacity();
+      MessageCli.BOOKING_ATTENDEES_ADJUSTED.printMessage(attendees, String.valueOf(newAttendees), String.valueOf(venue.getCapacity()));
+    }
+
+    // SUCCESFUL BOOKING
+    MessageCli.MAKE_BOOKING_SUCCESSFUL.printMessage(bookingRef, venue.getName(), requestDate, attendees);
+    venue.addBooking(venueCode, requestDate, email, attendees, bookingRef);
 
   }
 
