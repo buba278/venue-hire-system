@@ -27,4 +27,7 @@ public class Booking {
    public String getAttendees() {
     return this.attendees;
   }
+  public String getReference() {
+    return this.reference;
+  }
 }

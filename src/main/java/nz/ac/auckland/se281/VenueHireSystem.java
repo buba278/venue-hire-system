@@ -147,22 +147,27 @@ public class VenueHireSystem {
       return;
     }
 
-    // quantify dates in 0 = days, 1 = month, 2 = year
-    String[] dateParts = requestDate.split("/");
-    // magnify from year to day
-    
-
     // venue code exist, date available, date not in past (today or later)
     if (!codes.containsKey(venueCode) || codes.get(venueCode).checkDateAvailability(requestDate)) {
       return;
     }
 
-    if ()
+    // quantify dates in 0 = days, 1 = month, 2 = year
+    String[] dateParts = requestDate.split("/");
+    // magnify from year to day for sum value
+    int dateSum = (Integer.valueOf(dateParts[2]) * 100) + (Integer.valueOf(dateParts[1]) * 10) + Integer.valueOf(dateParts[0]);
 
-    //
+    // higher sum = later
+    String[] currentDateParts = requestDate.split("/");
+    int currentDateSum = (Integer.valueOf(currentDateParts[2]) * 100) + (Integer.valueOf(currentDateParts[1]) * 10) + Integer.valueOf(currentDateParts[0]);
+
+    if (dateSum < currentDateSum) {
+      return;
+    } 
 
     // Succesful booking
     MessageCli.MAKE_BOOKING_SUCCESSFUL.printMessage(bookingRef, codes.get(venueCode).getName(), requestDate, attendees);
+    codes.get(venueCode).addBooking(venueCode, requestDate, email, attendees, bookingRef);
 
   }
 
