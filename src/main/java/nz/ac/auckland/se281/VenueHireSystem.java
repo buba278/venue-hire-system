@@ -12,13 +12,14 @@ public class VenueHireSystem {
   private ArrayList<Venue> venues = new ArrayList<Venue>();
 
   // set of used codes
-  // private HashSet<String> codes = new HashSet<String>();
-
   // use a hashmap instead (value pairs to referencevenue) key = code, value = name
   private HashMap<String, String> codes = new HashMap<String, String>();
 
   // numbers to words for printing
   private final String[] numbers = new String[]{"", "one", "two", "three", "four", "five", "six", "seven", "eight", "nine"}; 
+
+  // setting up the system date variable
+  private String systemDate; 
   
   public VenueHireSystem() {}
 
@@ -106,6 +107,11 @@ public class VenueHireSystem {
 
   public void setSystemDate(String dateInput) {
     // TODO implement this method
+    this.systemDate = dateInput;
+    // print confirmation
+    MessageCli.DATE_SET.printMessage(systemDate);
+
+    return;
   }
 
   public void printSystemDate() {
