@@ -144,16 +144,25 @@ public class VenueHireSystem {
 
     // PRE CHECKS
 
-    // date set, and one venue in system
-    if (systemDate.trim().equals("") || venues.size() == 0) {
+    // date set
+    if (systemDate.trim().equals("")) {
+      MessageCli.BOOKING_NOT_MADE_DATE_NOT_SET.printMessage();
       return;
     }
-
-    // venue code exist, date available, date not in past (today or later)
-    if (!codes.containsKey(venueCode) || venue.checkDateAvailability(requestDate)) {
+    // at least one venue in the system
+     if (venues.size() == 0) {
+      MessageCli.BOOKING_NOT_MADE_NO_VENUES.printMessage();
       return;
     }
-
+    // venue code exist
+    if (!codes.containsKey(venueCode)) {
+      MessageCli.BOOKING_NOT_MADE_VENUE_NOT_FOUND.printMessage(venueCode);
+      return;
+    }
+    // date available
+    if (venue.checkDateAvailability(requestDate)) {
+      return;
+    }
     // quantify dates in 0 = days, 1 = month, 2 = year
     String[] dateParts = requestDate.split("/");
     // magnify from year to day for sum value
@@ -161,7 +170,7 @@ public class VenueHireSystem {
     // higher sum = later
     String[] currentDateParts = requestDate.split("/");
     int currentDateSum = (Integer.valueOf(currentDateParts[2]) * 100) + (Integer.valueOf(currentDateParts[1]) * 10) + Integer.valueOf(currentDateParts[0]);
-
+    // date is today or later than current date
     if (dateSum < currentDateSum) {
       return;
     } 
