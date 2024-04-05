@@ -1,6 +1,7 @@
 package nz.ac.auckland.se281;
 
 import java.util.HashMap;
+import java.util.Collection;
 
 public class Venue {
   private String name;
@@ -44,6 +45,9 @@ public class Venue {
   }
   public Booking getReferenceBooking(String reference) {
     return bookingReferences.get(reference);
+  }
+  public Collection<Booking> getAllReferenceBookings() {
+    return bookingReferences.values();
   }
   public void addBooking(String venueCode, String requestedDate, String email, String attendees, String reference) {
     Booking booking = new Booking(venueCode, requestedDate, email, attendees);
