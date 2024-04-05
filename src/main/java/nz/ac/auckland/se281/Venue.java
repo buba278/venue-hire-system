@@ -7,6 +7,7 @@ public class Venue {
   private String code;
   private int capacity;
   private int hireFee;
+  private String nextAvailableDate = "";
 
   // keep track of days booked, to what booking
   private HashMap<String, Booking> bookingDates = new HashMap<String, Booking>();
@@ -48,6 +49,17 @@ public class Venue {
     Booking booking = new Booking(venueCode, requestedDate, email, attendees);
     bookingDates.put(requestedDate, booking);
     bookingReferences.put(reference, booking);
+    this.nextAvailableDate = getNextAvailableDate();
+  }
+  public String getNextAvailableDate() {
+    // need to count from current day, to next day, until does not contain date key
+    // dont cross months according to ed
+    return this.nextAvailableDate;
+  }
+  public void setNextAvailableDate(String date) {
+    // dont implement actual check in venues as its system job
+    // to compare based on its current date
+    this.nextAvailableDate = date;
   }
 
 }

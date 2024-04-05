@@ -11,14 +11,13 @@ public class VenueHireSystem {
   // list of venues
   private ArrayList<Venue> venues = new ArrayList<Venue>();
 
-  // set of used codes
-  // use a hashmap instead (value pairs to referencevenue) key = code, value =
-  // name
+  // hashmap used codes (value pairs to referencevenue) 
+  // key = code, value = name
   private HashMap<String, Venue> codes = new HashMap<String, Venue>();
 
   // numbers to words for printing
-  private final String[] numbers = new String[] { "", "one", "two", "three", "four", "five", "six", "seven", "eight",
-      "nine" };
+  private final String[] numbers = new String[] { "", "one", "two", "three", "four", 
+  "five", "six", "seven", "eight", "nine" };
 
   // setting up the system date variable
   private String systemDate = "";
@@ -39,7 +38,7 @@ public class VenueHireSystem {
       MessageCli.NUMBER_VENUES.printMessage("is", this.numbers[1], "");
       Venue venue = venues.get(0);
       MessageCli.VENUE_ENTRY.printMessage(venue.getName(), venue.getCode(), String.valueOf(venue.getCapacity()),
-          String.valueOf(venue.getHireFee()));
+          String.valueOf(venue.getHireFee()), venue.getNextAvailableDate());
     }
 
     // less than 10 entries
@@ -47,7 +46,7 @@ public class VenueHireSystem {
       MessageCli.NUMBER_VENUES.printMessage("are", this.numbers[venues.size()], "s");
       for (Venue i : venues) {
         MessageCli.VENUE_ENTRY.printMessage(i.getName(), i.getCode(), String.valueOf(i.getCapacity()),
-            String.valueOf(i.getHireFee()));
+            String.valueOf(i.getHireFee()), i.getNextAvailableDate());
       }
     }
 
@@ -55,8 +54,9 @@ public class VenueHireSystem {
     else if (venues.size() >= 10) {
       MessageCli.NUMBER_VENUES.printMessage("are", String.valueOf(venues.size()), "s");
       for (Venue i : venues) {
+        
         MessageCli.VENUE_ENTRY.printMessage(i.getName(), i.getCode(), String.valueOf(i.getCapacity()),
-            String.valueOf(i.getHireFee()));
+            String.valueOf(i.getHireFee()), i.getNextAvailableDate());
       }
     }
   }
@@ -116,6 +116,7 @@ public class VenueHireSystem {
     this.systemDate = dateInput;
     // print confirmation
     MessageCli.DATE_SET.printMessage(systemDate);
+    updateVenueAvailability();
   }
 
   public void printSystemDate() {
@@ -192,6 +193,25 @@ public class VenueHireSystem {
     MessageCli.MAKE_BOOKING_SUCCESSFUL.printMessage(bookingRef, venue.getName(), requestDate, attendees);
     venue.addBooking(venueCode, requestDate, email, attendees, bookingRef);
 
+    updateVenueAvailability();
+  }
+  
+  // newly added method to get next day date
+  private String getNextDayDate(String date) {
+    String[] dateSplit = date.split("/");
+    dateSplit[0] = String.valueOf(Integer.valueOf(dateSplit[0]) + 1);
+    String nextDayDate = dateSplit[0] + "/" + dateSplit[1] + "/" + dateSplit[2];
+    return nextDayDate;
+  }
+  // new method, update all availabilities
+  private void updateVenueAvailability() {
+    String date = systemDate;
+    for (Venue i : venues) {
+      while (!i.checkDateAvailability(date)) {
+        date = getNextDayDate(date);
+      }
+      i.setNextAvailableDate(date);
+    }
   }
 
   public void printBookings(String venueCode) {
