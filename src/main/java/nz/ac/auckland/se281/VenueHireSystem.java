@@ -246,14 +246,14 @@ public class VenueHireSystem {
     MessageCli.PRINT_BOOKINGS_HEADER.printMessage(venue.getName());
 
     // if there are no bookings 
-    if (venue.getAllReferenceBookings().isEmpty()) {
+    if (venue.getBookingReferences().isEmpty()) {
       MessageCli.PRINT_BOOKINGS_NONE.printMessage(venue.getName());
       return;
     }
 
     // print out each booking
-    for (Booking booking : venue.getAllReferenceBookings()) {
-      MessageCli.PRINT_BOOKINGS_ENTRY.printMessage(booking.getReference(), booking.getDate());
+    for (String reference : venue.getBookingReferences().keySet()) {
+      MessageCli.PRINT_BOOKINGS_ENTRY.printMessage(reference, venue.getBookingReferences().get(reference).getDate());
     }
   }
 
