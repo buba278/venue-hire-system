@@ -37,7 +37,7 @@ public class Venue {
 
   // booking methods
   public boolean checkDateAvailability(String date) {
-    return bookingDates.containsKey(date);
+    return !bookingDates.containsKey(date);
   }
   public Booking getDateBooking(String date) {
     return bookingDates.get(date);

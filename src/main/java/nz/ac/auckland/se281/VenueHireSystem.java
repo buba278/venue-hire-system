@@ -116,7 +116,7 @@ public class VenueHireSystem {
     this.systemDate = dateInput;
     // print confirmation
     MessageCli.DATE_SET.printMessage(systemDate);
-    updateVenueAvailability();
+    updateAllVenueAvailability();
   }
 
   public void printSystemDate() {
@@ -193,7 +193,7 @@ public class VenueHireSystem {
     MessageCli.MAKE_BOOKING_SUCCESSFUL.printMessage(bookingRef, venue.getName(), requestDate, attendees);
     venue.addBooking(venueCode, requestDate, email, attendees, bookingRef);
 
-    updateVenueAvailability();
+    updateVenueAvailability(venue);
   }
   
   // newly added method to get next day date
@@ -203,8 +203,9 @@ public class VenueHireSystem {
     String nextDayDate = dateSplit[0] + "/" + dateSplit[1] + "/" + dateSplit[2];
     return nextDayDate;
   }
+  
   // new method, update all availabilities
-  private void updateVenueAvailability() {
+  private void updateAllVenueAvailability() {
     String date = systemDate;
     for (Venue i : venues) {
       while (!i.checkDateAvailability(date)) {
@@ -214,9 +215,19 @@ public class VenueHireSystem {
     }
   }
 
+  private void updateVenueAvailability(Venue venue) {
+    String date = systemDate;
+      while (!venue.checkDateAvailability(date)) {
+        date = getNextDayDate(date);
+      }
+      venue.setNextAvailableDate(date);
+  }
+
   public void printBookings(String venueCode) {
     // TODO implement this method
   }
+
+  //
 
   public void addCateringService(String bookingReference, CateringType cateringType) {
     // TODO implement this method
