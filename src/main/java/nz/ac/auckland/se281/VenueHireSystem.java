@@ -238,6 +238,7 @@ public class VenueHireSystem {
     // if venue code does not exist
     if (!codes.containsKey(venueCode)) {
       MessageCli.PRINT_BOOKINGS_VENUE_NOT_FOUND.printMessage(venueCode);
+      return;
     }
 
     // print the header
