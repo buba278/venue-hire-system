@@ -160,7 +160,7 @@ public class VenueHireSystem {
       return;
     }
     // date available
-    if (venue.checkDateAvailability(requestDate)) {
+    if (!venue.checkDateAvailability(requestDate)) {
       MessageCli.BOOKING_NOT_MADE_VENUE_ALREADY_BOOKED.printMessage(venue.getName(), requestDate);
       return;
     }
