@@ -181,7 +181,7 @@ public class VenueHireSystem {
     }
 
     // NON IDEAL CHECKS
-    if ((Integer.valueOf(attendees) / venue.getCapacity()) < 0.25) {
+    if ((Double.valueOf(attendees) / venue.getCapacity()) < 0.25) {
       int newAttendees = (int) (venue.getCapacity() * 0.25);
       MessageCli.BOOKING_ATTENDEES_ADJUSTED.printMessage(attendees, String.valueOf(newAttendees),
           String.valueOf(venue.getCapacity()));
@@ -201,8 +201,16 @@ public class VenueHireSystem {
   // newly added method to get next day date
   private String getNextDayDate(String date) {
     String[] dateSplit = date.split("/");
+    String nextDayDate;
+    // if single digit add the zero before
+    if ((Integer.valueOf(dateSplit[0]) / 10) < 1) {
+      dateSplit[0] = String.valueOf(Integer.valueOf(dateSplit[0]) + 1);
+      nextDayDate = "0" + dateSplit[0] + "/" + dateSplit[1] + "/" + dateSplit[2];
+      return nextDayDate;
+    }
+    
     dateSplit[0] = String.valueOf(Integer.valueOf(dateSplit[0]) + 1);
-    String nextDayDate = dateSplit[0] + "/" + dateSplit[1] + "/" + dateSplit[2];
+    nextDayDate = dateSplit[0] + "/" + dateSplit[1] + "/" + dateSplit[2];
     return nextDayDate;
   }
 
