@@ -227,14 +227,22 @@ public class VenueHireSystem {
 
   public void printBookings(String venueCode) {
     // TODO implement this method
+    // if venue code does not exist
+    if (!codes.containsKey(venueCode)) {
+      MessageCli.PRINT_BOOKINGS_VENUE_NOT_FOUND.printMessage(venueCode);
+    }
+
+    // print the header
     Venue venue = codes.get(venueCode);
     MessageCli.PRINT_BOOKINGS_HEADER.printMessage(venue.getName());
 
+    // if there are no bookings 
     if (venue.getAllReferenceBookings().isEmpty()) {
       MessageCli.PRINT_BOOKINGS_NONE.printMessage(venue.getName());
       return;
     }
 
+    // print out each booking
     for (Booking booking : venue.getAllReferenceBookings()) {
       MessageCli.PRINT_BOOKINGS_ENTRY.printMessage(booking.getReference(), booking.getDate());
     }
