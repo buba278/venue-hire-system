@@ -15,7 +15,7 @@ public class Booking {
   private Catering cateringService = null;
   private Music musicService = null;
   private Floral floralService = null;
-  private int cost = 0;
+  private int totalCost = 0;
 
   // Handle paramters as strings due to HireSystem formatting
   public Booking(String venueCode, String requestedDate, String email, String attendees, String dateMade) {
@@ -45,8 +45,8 @@ public class Booking {
     return this.dateMade;
   }
   
-  public void setCatering(CateringType cateringType, String bookingReference) {
-    Catering cateringService = new Catering(cateringType, bookingReference);
+  public void setCatering(CateringType cateringType, String bookingReference, int attendees) {
+    Catering cateringService = new Catering(cateringType, bookingReference, attendees);
     return;
   }
   public void setMusic(String bookingReference) {
@@ -56,5 +56,41 @@ public class Booking {
   public void setFloral(FloralType floralType, String bookingReference) {
     Floral floralService = new Floral(floralType, bookingReference);
     return;
+  }
+  
+  public int getCateringCost() {
+    int cost = 0;
+    if (cateringService != null) {
+      cost = cateringService.getCost();
+    }
+    return cost;
+  }
+  public int getMusicCost() {
+    int cost = 0;
+    if (floralService != null) {
+      cost = floralService.getCost();
+    }
+    return cost;
+  }
+  public int getFloralCost() {
+    int cost = 0;
+    if (floralService != null) {
+      cost = floralService.getCost();
+    }
+    return cost;
+  }
+
+  public int getTotalCost() {
+    int sum = 0;
+    if (cateringService != null) {
+      sum += cateringService.getCost();
+    }
+    if (musicService != null) {
+      sum += musicService.getCost();
+    }
+    if (floralService != null) {
+      sum += floralService.getCost();
+    }
+    return sum;
   }
 }

@@ -282,7 +282,7 @@ public class VenueHireSystem {
     // get the booking
     Booking booking = bookings.get(bookingReference);
     // add the catering type
-    booking.setCatering(cateringType, bookingReference);
+    booking.setCatering(cateringType, bookingReference, Integer.valueOf(booking.getAttendees()));
     MessageCli.ADD_SERVICE_SUCCESSFUL.printMessage("Catering (" + cateringType.getName() + ")", bookingReference);
   }
 
@@ -328,10 +328,10 @@ public class VenueHireSystem {
 
     // invoice body
     MessageCli.INVOICE_CONTENT_TOP_HALF.printMessage(bookingReference, booking.getEmail(), booking.getDateMade(), booking.getDate(), booking.getAttendees(), venue.getName());
-    MessageCli.INVOICE_CONTENT_VENUE_FEE.printMessage();
-    MessageCli.INVOICE_CONTENT_CATERING_ENTRY.printMessage();
-    MessageCli.INVOICE_CONTENT_MUSIC_ENTRY.printMessage();
-    MessageCli.INVOICE_CONTENT_FLORAL_ENTRY.printMessage();
-    MessageCli.INVOICE_CONTENT_BOTTOM_HALF.printMessage();
+    MessageCli.INVOICE_CONTENT_VENUE_FEE.printMessage(String.valueOf(venue.getHireFee()));
+    MessageCli.INVOICE_CONTENT_CATERING_ENTRY.printMessage(String.valueOf(booking.getCateringCost()));
+    MessageCli.INVOICE_CONTENT_MUSIC_ENTRY.printMessage(String.valueOf(booking.getMusicCost()));
+    MessageCli.INVOICE_CONTENT_FLORAL_ENTRY.printMessage(String.valueOf(booking.getFloralCost()));
+    MessageCli.INVOICE_CONTENT_BOTTOM_HALF.printMessage(String.valueOf(booking.getTotalCost()));
   }
 }

@@ -9,4 +9,7 @@ public class Floral extends Service {
     super(bookingReference, type.getCost());
     this.type = type;
   }
+  public int getCost() {
+    return 0;
+  }
 }
