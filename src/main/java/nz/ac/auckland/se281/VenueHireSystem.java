@@ -313,7 +313,7 @@ public class VenueHireSystem {
     Booking booking = bookings.get(bookingReference);
     // add the catering type
     booking.setFloral(floralType, bookingReference);
-    MessageCli.ADD_SERVICE_SUCCESSFUL.printMessage("Catering (" + floralType.getName() + ")", bookingReference);
+    MessageCli.ADD_SERVICE_SUCCESSFUL.printMessage("Floral (" + floralType.getName() + ")", bookingReference);
   }
 
   public void viewInvoice(String bookingReference) {
