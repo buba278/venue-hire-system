@@ -7,6 +7,11 @@ public class Booking {
   private String email;
   private String attendees;
 
+  // service fields
+  private Catering cateringService = null;
+  private Music musicService = null;
+  private Floral floralService = null;
+  
   // Handle paramters as strings due to HireSystem formatting
   public Booking(String venueCode, String requestedDate, String email, String attendees) {
     this.venueCode = venueCode;

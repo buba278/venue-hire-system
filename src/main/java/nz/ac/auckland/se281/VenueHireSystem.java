@@ -11,9 +11,11 @@ public class VenueHireSystem {
   // list of venues
   private ArrayList<Venue> venues = new ArrayList<Venue>();
 
-  // hashmap used codes (value pairs to referencevenue)
-  // key = code, value = name
+  // hashmap used codes (value pairs to referencevenue) || key = code, value = name
   private HashMap<String, Venue> codes = new HashMap<String, Venue>();
+
+  // new map for tracking booking references for service addition
+  private HashMap<String, Booking> bookings = new HashMap<String, Booking>(); 
 
   // numbers to words for printing
   private final String[] numbers = new String[] { "", "one", "two", "three", "four",
@@ -195,6 +197,9 @@ public class VenueHireSystem {
     MessageCli.MAKE_BOOKING_SUCCESSFUL.printMessage(bookingRef, venue.getName(), requestDate, attendees);
     venue.addBooking(venueCode, requestDate, email, attendees, bookingRef);
 
+    // track bookings assigned to bookingReferences for service additions
+    bookings.put(bookingRef, venue.getReferenceBooking(bookingRef));
+
     updateVenueAvailability(venue);
   }
 
@@ -258,20 +263,37 @@ public class VenueHireSystem {
   }
 
   //
-  public boolean checkBookingReference(String bookingReference) {
-    
-    return true;
+  // reusable check for if reference is valid
+  private boolean checkBookingReference(String bookingReference) {
+    if(bookings.containsKey(bookingReference)) {
+      return true;
+    }
+    return false;
   }
+
   public void addCateringService(String bookingReference, CateringType cateringType) {
     // TODO implement this method
+    // if the booking dont exist
+    if(!checkBookingReference(bookingReference)) {
+      MessageCli.SERVICE_NOT_ADDED_BOOKING_NOT_FOUND.printMessage("Catering", bookingReference);
+      return;
+    }
   }
 
   public void addServiceMusic(String bookingReference) {
     // TODO implement this method
+    if(!checkBookingReference(bookingReference)) {
+      MessageCli.SERVICE_NOT_ADDED_BOOKING_NOT_FOUND.printMessage("Music", bookingReference);
+      return;
+    }
   }
 
   public void addServiceFloral(String bookingReference, FloralType floralType) {
     // TODO implement this method
+    if(!checkBookingReference(bookingReference)) {
+      MessageCli.SERVICE_NOT_ADDED_BOOKING_NOT_FOUND.printMessage("Floral", bookingReference);
+      return;
+    }
   }
 
   public void viewInvoice(String bookingReference) {
