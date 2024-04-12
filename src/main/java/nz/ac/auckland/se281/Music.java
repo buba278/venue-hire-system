@@ -6,4 +6,8 @@ public class Music extends Service {
   public Music() {
     this.cost = 500;
   }
+
+  public int getCost() {
+    return this.cost;
+  }
 }

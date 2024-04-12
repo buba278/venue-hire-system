@@ -278,22 +278,42 @@ public class VenueHireSystem {
       MessageCli.SERVICE_NOT_ADDED_BOOKING_NOT_FOUND.printMessage("Catering", bookingReference);
       return;
     }
+
+    // get the booking
+    Booking booking = bookings.get(bookingReference);
+    // add the catering type
+    booking.setCatering(cateringType);
+    MessageCli.ADD_SERVICE_SUCCESSFUL.printMessage("Catering (" + cateringType.getName() + ")", bookingReference);
   }
 
   public void addServiceMusic(String bookingReference) {
     // TODO implement this method
+    // if the booking dont exist
     if(!checkBookingReference(bookingReference)) {
       MessageCli.SERVICE_NOT_ADDED_BOOKING_NOT_FOUND.printMessage("Music", bookingReference);
       return;
     }
+
+    // get the booking
+    Booking booking = bookings.get(bookingReference);
+    // add the catering type
+    booking.setMusic();
+    MessageCli.ADD_SERVICE_SUCCESSFUL.printMessage("Music", bookingReference);
   }
 
   public void addServiceFloral(String bookingReference, FloralType floralType) {
     // TODO implement this method
+    // if the booking dont exist
     if(!checkBookingReference(bookingReference)) {
       MessageCli.SERVICE_NOT_ADDED_BOOKING_NOT_FOUND.printMessage("Floral", bookingReference);
       return;
     }
+
+    // get the booking
+    Booking booking = bookings.get(bookingReference);
+    // add the catering type
+    booking.setFloral(floralType);
+    MessageCli.ADD_SERVICE_SUCCESSFUL.printMessage("Catering (" + floralType.getName() + ")", bookingReference);
   }
 
   public void viewInvoice(String bookingReference) {

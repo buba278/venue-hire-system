@@ -1,7 +1,6 @@
 package nz.ac.auckland.se281;
 
 import java.util.HashMap;
-import java.util.Set;
 
 public class Venue {
   private String name;
