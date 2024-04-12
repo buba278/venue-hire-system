@@ -208,7 +208,7 @@ public class VenueHireSystem {
       nextDayDate = "0" + dateSplit[0] + "/" + dateSplit[1] + "/" + dateSplit[2];
       return nextDayDate;
     }
-    
+
     dateSplit[0] = String.valueOf(Integer.valueOf(dateSplit[0]) + 1);
     nextDayDate = dateSplit[0] + "/" + dateSplit[1] + "/" + dateSplit[2];
     return nextDayDate;
@@ -245,7 +245,7 @@ public class VenueHireSystem {
     Venue venue = codes.get(venueCode);
     MessageCli.PRINT_BOOKINGS_HEADER.printMessage(venue.getName());
 
-    // if there are no bookings 
+    // if there are no bookings
     if (venue.getBookingReferences().isEmpty()) {
       MessageCli.PRINT_BOOKINGS_NONE.printMessage(venue.getName());
       return;
@@ -258,7 +258,10 @@ public class VenueHireSystem {
   }
 
   //
-
+  public boolean checkBookingReference(String bookingReference) {
+    
+    return true;
+  }
   public void addCateringService(String bookingReference, CateringType cateringType) {
     // TODO implement this method
   }
