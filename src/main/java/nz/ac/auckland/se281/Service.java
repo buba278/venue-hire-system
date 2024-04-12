@@ -2,7 +2,7 @@ package nz.ac.auckland.se281;
 
 abstract public class Service {
   private String bookingReference;
-  private int cost;
+  protected int cost;
 
   abstract int getCost();
 

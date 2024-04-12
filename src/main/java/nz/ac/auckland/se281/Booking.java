@@ -15,7 +15,6 @@ public class Booking {
   private Catering cateringService = null;
   private Music musicService = null;
   private Floral floralService = null;
-  private int totalCost = 0;
 
   // Handle paramters as strings due to HireSystem formatting
   public Booking(String venueCode, String requestedDate, String email, String attendees, String dateMade) {
@@ -47,14 +46,17 @@ public class Booking {
   
   public void setCatering(CateringType cateringType, String bookingReference, int attendees) {
     Catering cateringService = new Catering(cateringType, bookingReference, attendees);
+    this.cateringService = cateringService;
     return;
   }
   public void setMusic(String bookingReference) {
     Music musicService = new Music(bookingReference);
+    this.musicService = musicService;
     return;
   }
   public void setFloral(FloralType floralType, String bookingReference) {
     Floral floralService = new Floral(floralType, bookingReference);
+    this.floralService = floralService;
     return;
   }
   

@@ -9,6 +9,6 @@ public class Catering extends Service {
   }
 
   public int getCost() {
-    return 0;
+    return cost;
   }
 }

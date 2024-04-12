@@ -7,6 +7,6 @@ public class Music extends Service {
   }
 
   public int getCost() {
-    return 0;
+    return cost;
   }
 }
