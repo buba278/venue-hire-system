@@ -48,8 +48,8 @@ public class Venue {
   public HashMap<String, Booking> getBookingReferences() {
     return bookingReferences;
   }
-  public void addBooking(String venueCode, String requestedDate, String email, String attendees, String reference) {
-    Booking booking = new Booking(venueCode, requestedDate, email, attendees);
+  public void addBooking(String venueCode, String requestedDate, String email, String attendees, String reference, String dateMade) {
+    Booking booking = new Booking(venueCode, requestedDate, email, attendees, dateMade);
     bookingDates.put(requestedDate, booking);
     bookingReferences.put(reference, booking);
     this.nextAvailableDate = getNextAvailableDate();

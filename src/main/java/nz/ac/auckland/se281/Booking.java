@@ -9,6 +9,7 @@ public class Booking {
   private String requestedDate;
   private String email;
   private String attendees;
+  private String dateMade;
 
   // service fields
   private Catering cateringService = null;
@@ -17,11 +18,12 @@ public class Booking {
   private int cost = 0;
 
   // Handle paramters as strings due to HireSystem formatting
-  public Booking(String venueCode, String requestedDate, String email, String attendees) {
+  public Booking(String venueCode, String requestedDate, String email, String attendees, String dateMade) {
     this.venueCode = venueCode;
     this.requestedDate = requestedDate;
     this.email = email;
     this.attendees = attendees;
+    this.dateMade = dateMade;
   }
 
   public String getCode() {
@@ -39,17 +41,20 @@ public class Booking {
   public String getReference() {
     return this.reference;
   }
+  public String getDateMade() {
+    return this.dateMade;
+  }
   
-  public void setCatering(CateringType cateringType) {
-    Catering cateringService = new Catering(cateringType);
+  public void setCatering(CateringType cateringType, String bookingReference) {
+    Catering cateringService = new Catering(cateringType, bookingReference);
     return;
   }
-  public void setMusic() {
-    Music musicService = new Music();
+  public void setMusic(String bookingReference) {
+    Music musicService = new Music(bookingReference);
     return;
   }
-  public void setFloral(FloralType floralType) {
-    Floral floralService = new Floral(floralType);
+  public void setFloral(FloralType floralType, String bookingReference) {
+    Floral floralService = new Floral(floralType, bookingReference);
     return;
   }
 }

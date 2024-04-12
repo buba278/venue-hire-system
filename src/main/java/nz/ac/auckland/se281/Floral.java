@@ -4,16 +4,9 @@ import nz.ac.auckland.se281.Types.FloralType;
 
 public class Floral extends Service {
   private FloralType type;
-  private String typeName;
-  private int cost;
 
-  public Floral(FloralType type) {
+  public Floral(FloralType type, String bookingReference) {
+    super(bookingReference, type.getCost());
     this.type = type;
-    this.typeName = type.getName();
-    this.cost = type.getCost();
-  }
-
-  public int getCost() {
-    return cost;
   }
 }

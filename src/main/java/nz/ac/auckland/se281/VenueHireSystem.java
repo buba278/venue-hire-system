@@ -195,7 +195,7 @@ public class VenueHireSystem {
 
     // SUCCESFUL BOOKING
     MessageCli.MAKE_BOOKING_SUCCESSFUL.printMessage(bookingRef, venue.getName(), requestDate, attendees);
-    venue.addBooking(venueCode, requestDate, email, attendees, bookingRef);
+    venue.addBooking(venueCode, requestDate, email, attendees, bookingRef, systemDate);
 
     // track bookings assigned to bookingReferences for service additions
     bookings.put(bookingRef, venue.getReferenceBooking(bookingRef));
@@ -282,7 +282,7 @@ public class VenueHireSystem {
     // get the booking
     Booking booking = bookings.get(bookingReference);
     // add the catering type
-    booking.setCatering(cateringType);
+    booking.setCatering(cateringType, bookingReference);
     MessageCli.ADD_SERVICE_SUCCESSFUL.printMessage("Catering (" + cateringType.getName() + ")", bookingReference);
   }
 
@@ -297,7 +297,7 @@ public class VenueHireSystem {
     // get the booking
     Booking booking = bookings.get(bookingReference);
     // add the catering type
-    booking.setMusic();
+    booking.setMusic(bookingReference);
     MessageCli.ADD_SERVICE_SUCCESSFUL.printMessage("Music", bookingReference);
   }
 
@@ -312,7 +312,7 @@ public class VenueHireSystem {
     // get the booking
     Booking booking = bookings.get(bookingReference);
     // add the catering type
-    booking.setFloral(floralType);
+    booking.setFloral(floralType, bookingReference);
     MessageCli.ADD_SERVICE_SUCCESSFUL.printMessage("Catering (" + floralType.getName() + ")", bookingReference);
   }
 
@@ -322,5 +322,16 @@ public class VenueHireSystem {
       MessageCli.VIEW_INVOICE_BOOKING_NOT_FOUND.printMessage(bookingReference);
       return;
     }
+
+    Booking booking = bookings.get(bookingReference);
+    Venue venue = codes.get(booking.getCode());
+
+    // invoice body
+    MessageCli.INVOICE_CONTENT_TOP_HALF.printMessage(bookingReference, booking.getEmail(), booking.getDateMade(), booking.getDate(), booking.getAttendees(), venue.getName());
+    MessageCli.INVOICE_CONTENT_VENUE_FEE.printMessage();
+    MessageCli.INVOICE_CONTENT_CATERING_ENTRY.printMessage();
+    MessageCli.INVOICE_CONTENT_MUSIC_ENTRY.printMessage();
+    MessageCli.INVOICE_CONTENT_FLORAL_ENTRY.printMessage();
+    MessageCli.INVOICE_CONTENT_BOTTOM_HALF.printMessage();
   }
 }
