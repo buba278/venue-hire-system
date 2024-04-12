@@ -195,7 +195,7 @@ public class VenueHireSystem {
 
     // SUCCESFUL BOOKING
     MessageCli.MAKE_BOOKING_SUCCESSFUL.printMessage(bookingRef, venue.getName(), requestDate, attendees);
-    venue.addBooking(venueCode, requestDate, email, attendees, bookingRef, systemDate);
+    venue.addBooking(venueCode, requestDate, email, attendees, bookingRef, systemDate, venue.getHireFee());
 
     // track bookings assigned to bookingReferences for service additions
     bookings.put(bookingRef, venue.getReferenceBooking(bookingRef));
@@ -329,9 +329,15 @@ public class VenueHireSystem {
     // invoice body
     MessageCli.INVOICE_CONTENT_TOP_HALF.printMessage(bookingReference, booking.getEmail(), booking.getDateMade(), booking.getDate(), booking.getAttendees(), venue.getName());
     MessageCli.INVOICE_CONTENT_VENUE_FEE.printMessage(String.valueOf(venue.getHireFee()));
-    MessageCli.INVOICE_CONTENT_CATERING_ENTRY.printMessage(String.valueOf(booking.getCateringCost()));
-    MessageCli.INVOICE_CONTENT_MUSIC_ENTRY.printMessage(String.valueOf(booking.getMusicCost()));
-    MessageCli.INVOICE_CONTENT_FLORAL_ENTRY.printMessage(String.valueOf(booking.getFloralCost()));
+    if (!(booking.getCateringCost() == 0)){
+      MessageCli.INVOICE_CONTENT_CATERING_ENTRY.printMessage(booking.getCateringType(), String.valueOf(booking.getCateringCost()));
+    }
+    if (!(booking.getMusicCost() == 0)){
+      MessageCli.INVOICE_CONTENT_MUSIC_ENTRY.printMessage(String.valueOf(booking.getMusicCost()));
+    }
+    if (!(booking.getFloralCost() == 0)){
+      MessageCli.INVOICE_CONTENT_FLORAL_ENTRY.printMessage(booking.getFloralType(), String.valueOf(booking.getFloralCost()));
+    }
     MessageCli.INVOICE_CONTENT_BOTTOM_HALF.printMessage(String.valueOf(booking.getTotalCost()));
   }
 }

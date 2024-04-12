@@ -15,14 +15,16 @@ public class Booking {
   private Catering cateringService = null;
   private Music musicService = null;
   private Floral floralService = null;
+  private int venueCost = 0;
 
   // Handle paramters as strings due to HireSystem formatting
-  public Booking(String venueCode, String requestedDate, String email, String attendees, String dateMade) {
+  public Booking(String venueCode, String requestedDate, String email, String attendees, String dateMade, int venueCost) {
     this.venueCode = venueCode;
     this.requestedDate = requestedDate;
     this.email = email;
     this.attendees = attendees;
     this.dateMade = dateMade;
+    this.venueCost = venueCost;
   }
 
   public String getCode() {
@@ -59,6 +61,13 @@ public class Booking {
     this.floralService = floralService;
     return;
   }
+
+  public String getFloralType() {
+    return floralService.getType();
+  }
+  public String getCateringType() {
+    return cateringService.getType();
+  }
   
   public int getCateringCost() {
     int cost = 0;
@@ -93,6 +102,7 @@ public class Booking {
     if (floralService != null) {
       sum += floralService.getCost();
     }
+    sum += venueCost;
     return sum;
   }
 }
