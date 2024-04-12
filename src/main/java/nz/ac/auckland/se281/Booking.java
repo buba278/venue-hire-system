@@ -78,8 +78,8 @@ public class Booking {
   }
   public int getMusicCost() {
     int cost = 0;
-    if (floralService != null) {
-      cost = floralService.getCost();
+    if (musicService != null) {
+      cost = musicService.getCost();
     }
     return cost;
   }
