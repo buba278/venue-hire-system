@@ -13,6 +13,7 @@ public class Floral extends Service {
   public int getCost() {
     return cost;
   }
+
   public String getType() {
     return type;
   }

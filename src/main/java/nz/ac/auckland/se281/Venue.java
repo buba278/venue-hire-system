@@ -25,13 +25,16 @@ public class Venue {
   public String getName() {
     return this.name;
   }
+
   public String getCode() {
     return this.code;
   }
+
   public int getCapacity() {
     return this.capacity;
   }
-   public int getHireFee() {
+
+  public int getHireFee() {
     return this.hireFee;
   }
 
@@ -39,26 +42,33 @@ public class Venue {
   public boolean checkDateAvailability(String date) {
     return !bookingDates.containsKey(date);
   }
+
   public Booking getDateBooking(String date) {
     return bookingDates.get(date);
   }
+
   public Booking getReferenceBooking(String reference) {
     return bookingReferences.get(reference);
   }
+
   public HashMap<String, Booking> getBookingReferences() {
     return bookingReferences;
   }
-  public void addBooking(String venueCode, String requestedDate, String email, String attendees, String reference, String dateMade, int venueCost) {
+
+  public void addBooking(String venueCode, String requestedDate, String email, String attendees, String reference,
+      String dateMade, int venueCost) {
     Booking booking = new Booking(venueCode, requestedDate, email, attendees, dateMade, venueCost);
     bookingDates.put(requestedDate, booking);
     bookingReferences.put(reference, booking);
     this.nextAvailableDate = getNextAvailableDate();
   }
+
   public String getNextAvailableDate() {
     // need to count from current day, to next day, until does not contain date key
     // dont cross months according to ed
     return this.nextAvailableDate;
   }
+
   public void setNextAvailableDate(String date) {
     // dont implement actual check in venues as its system job
     // to compare based on its current date

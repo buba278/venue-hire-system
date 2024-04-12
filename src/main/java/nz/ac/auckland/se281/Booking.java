@@ -18,7 +18,8 @@ public class Booking {
   private int venueCost = 0;
 
   // Handle paramters as strings due to HireSystem formatting
-  public Booking(String venueCode, String requestedDate, String email, String attendees, String dateMade, int venueCost) {
+  public Booking(String venueCode, String requestedDate, String email, String attendees, String dateMade,
+      int venueCost) {
     this.venueCode = venueCode;
     this.requestedDate = requestedDate;
     this.email = email;
@@ -30,32 +31,39 @@ public class Booking {
   public String getCode() {
     return this.venueCode;
   }
+
   public String getDate() {
     return this.requestedDate;
   }
+
   public String getEmail() {
     return this.email;
   }
+
   public String getAttendees() {
     return this.attendees;
   }
+
   public String getReference() {
     return this.reference;
   }
+
   public String getDateMade() {
     return this.dateMade;
   }
-  
+
   public void setCatering(CateringType cateringType, String bookingReference, int attendees) {
     Catering cateringService = new Catering(cateringType, bookingReference, attendees);
     this.cateringService = cateringService;
     return;
   }
+
   public void setMusic(String bookingReference) {
     Music musicService = new Music(bookingReference);
     this.musicService = musicService;
     return;
   }
+
   public void setFloral(FloralType floralType, String bookingReference) {
     Floral floralService = new Floral(floralType, bookingReference);
     this.floralService = floralService;
@@ -65,10 +73,11 @@ public class Booking {
   public String getFloralType() {
     return floralService.getType();
   }
+
   public String getCateringType() {
     return cateringService.getType();
   }
-  
+
   public int getCateringCost() {
     int cost = 0;
     if (cateringService != null) {
@@ -76,6 +85,7 @@ public class Booking {
     }
     return cost;
   }
+
   public int getMusicCost() {
     int cost = 0;
     if (musicService != null) {
@@ -83,6 +93,7 @@ public class Booking {
     }
     return cost;
   }
+
   public int getFloralCost() {
     int cost = 0;
     if (floralService != null) {

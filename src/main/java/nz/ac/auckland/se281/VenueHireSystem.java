@@ -11,11 +11,11 @@ public class VenueHireSystem {
   // list of venues
   private ArrayList<Venue> venues = new ArrayList<Venue>();
 
-  // hashmap used codes (value pairs to referencevenue) || key = code, value = name
+  // hashmap used codes (value pairs to referencevenue)
   private HashMap<String, Venue> codes = new HashMap<String, Venue>();
 
   // new map for tracking booking references for service addition
-  private HashMap<String, Booking> bookings = new HashMap<String, Booking>(); 
+  private HashMap<String, Booking> bookings = new HashMap<String, Booking>();
 
   // numbers to words for printing
   private final String[] numbers = new String[] { "", "one", "two", "three", "four",
@@ -265,7 +265,7 @@ public class VenueHireSystem {
   //
   // reusable check for if reference is valid
   private boolean checkBookingReference(String bookingReference) {
-    if(bookings.containsKey(bookingReference)) {
+    if (bookings.containsKey(bookingReference)) {
       return true;
     }
     return false;
@@ -274,7 +274,7 @@ public class VenueHireSystem {
   public void addCateringService(String bookingReference, CateringType cateringType) {
     // TODO implement this method
     // if the booking dont exist
-    if(!checkBookingReference(bookingReference)) {
+    if (!checkBookingReference(bookingReference)) {
       MessageCli.SERVICE_NOT_ADDED_BOOKING_NOT_FOUND.printMessage("Catering", bookingReference);
       return;
     }
@@ -289,7 +289,7 @@ public class VenueHireSystem {
   public void addServiceMusic(String bookingReference) {
     // TODO implement this method
     // if the booking dont exist
-    if(!checkBookingReference(bookingReference)) {
+    if (!checkBookingReference(bookingReference)) {
       MessageCli.SERVICE_NOT_ADDED_BOOKING_NOT_FOUND.printMessage("Music", bookingReference);
       return;
     }
@@ -304,7 +304,7 @@ public class VenueHireSystem {
   public void addServiceFloral(String bookingReference, FloralType floralType) {
     // TODO implement this method
     // if the booking dont exist
-    if(!checkBookingReference(bookingReference)) {
+    if (!checkBookingReference(bookingReference)) {
       MessageCli.SERVICE_NOT_ADDED_BOOKING_NOT_FOUND.printMessage("Floral", bookingReference);
       return;
     }
@@ -318,7 +318,7 @@ public class VenueHireSystem {
 
   public void viewInvoice(String bookingReference) {
     // TODO implement this method
-    if(!checkBookingReference(bookingReference)) {
+    if (!checkBookingReference(bookingReference)) {
       MessageCli.VIEW_INVOICE_BOOKING_NOT_FOUND.printMessage(bookingReference);
       return;
     }
@@ -327,16 +327,19 @@ public class VenueHireSystem {
     Venue venue = codes.get(booking.getCode());
 
     // invoice body
-    MessageCli.INVOICE_CONTENT_TOP_HALF.printMessage(bookingReference, booking.getEmail(), booking.getDateMade(), booking.getDate(), booking.getAttendees(), venue.getName());
+    MessageCli.INVOICE_CONTENT_TOP_HALF.printMessage(bookingReference, booking.getEmail(), booking.getDateMade(),
+        booking.getDate(), booking.getAttendees(), venue.getName());
     MessageCli.INVOICE_CONTENT_VENUE_FEE.printMessage(String.valueOf(venue.getHireFee()));
-    if (!(booking.getCateringCost() == 0)){
-      MessageCli.INVOICE_CONTENT_CATERING_ENTRY.printMessage(booking.getCateringType(), String.valueOf(booking.getCateringCost()));
+    if (!(booking.getCateringCost() == 0)) {
+      MessageCli.INVOICE_CONTENT_CATERING_ENTRY.printMessage(booking.getCateringType(),
+          String.valueOf(booking.getCateringCost()));
     }
-    if (!(booking.getMusicCost() == 0)){
+    if (!(booking.getMusicCost() == 0)) {
       MessageCli.INVOICE_CONTENT_MUSIC_ENTRY.printMessage(String.valueOf(booking.getMusicCost()));
     }
-    if (!(booking.getFloralCost() == 0)){
-      MessageCli.INVOICE_CONTENT_FLORAL_ENTRY.printMessage(booking.getFloralType(), String.valueOf(booking.getFloralCost()));
+    if (!(booking.getFloralCost() == 0)) {
+      MessageCli.INVOICE_CONTENT_FLORAL_ENTRY.printMessage(booking.getFloralType(),
+          String.valueOf(booking.getFloralCost()));
     }
     MessageCli.INVOICE_CONTENT_BOTTOM_HALF.printMessage(String.valueOf(booking.getTotalCost()));
   }

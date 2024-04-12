@@ -214,7 +214,8 @@ public class Main {
       return true;
     }
 
-    // Check if the number of arguments provided don't match up as required for that command
+    // Check if the number of arguments provided don't match up as required for that
+    // command
     if (!checkArgs(command, args)) {
       MessageCli.WRONG_ARGUMENT_COUNT.printMessage(
           String.valueOf(command.getNumArgs()), command.getNumArgs() != 1 ? "s" : "", commandStr);
