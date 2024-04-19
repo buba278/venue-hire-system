@@ -170,12 +170,12 @@ public class VenueHireSystem {
     // quantify dates in 0 = days, 1 = month, 2 = year
     String[] dateParts = requestDate.split("/");
     // magnify from year to day for sum value
-    int dateSum = (Integer.valueOf(dateParts[2]) * 100) + (Integer.valueOf(dateParts[1]) * 10)
-        + Integer.valueOf(dateParts[0]);
+    int dateSum = (Integer.parseInt(dateParts[2]) * 100) + (Integer.parseInt(dateParts[1]) * 10) + Integer.parseInt(dateParts[0]);
+        System.out.println(dateSum);
     // higher sum = later
-    String[] currentDateParts = requestDate.split("/");
-    int currentDateSum = (Integer.valueOf(currentDateParts[2]) * 100) + (Integer.valueOf(currentDateParts[1]) * 10)
-        + Integer.valueOf(currentDateParts[0]);
+    String[] currentDateParts = systemDate.split("/");
+    int currentDateSum = (Integer.parseInt(currentDateParts[2]) * 100) + (Integer.parseInt(currentDateParts[1]) * 10) + Integer.parseInt(currentDateParts[0]);
+        System.out.println(currentDateSum);
     // date is today or later than current date
     if (dateSum < currentDateSum) {
       MessageCli.BOOKING_NOT_MADE_PAST_DATE.printMessage(requestDate, systemDate);
