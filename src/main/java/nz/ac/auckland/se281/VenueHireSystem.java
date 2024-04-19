@@ -108,6 +108,8 @@ public class VenueHireSystem {
     venues.add(venue);
     codes.put(venueCode, venue);
 
+    venue.setNextAvailableDate(systemDate);
+
     MessageCli.VENUE_SUCCESSFULLY_CREATED.printMessage(venue.getName(), venue.getCode());
   }
 
