@@ -156,6 +156,20 @@ public class VenueHireSystem {
       MessageCli.BOOKING_NOT_MADE_NO_VENUES.printMessage();
       return;
     }
+
+    // quantify dates in 0 = days, 1 = month, 2 = year
+    String[] dateParts = requestDate.split("/");
+    // magnify from year to day for sum value
+    int dateSum = (Integer.parseInt(dateParts[2]) * 100) + (Integer.parseInt(dateParts[1]) * 10) + Integer.parseInt(dateParts[0]);
+    // higher sum = later
+    String[] currentDateParts = systemDate.split("/");
+    int currentDateSum = (Integer.parseInt(currentDateParts[2]) * 100) + (Integer.parseInt(currentDateParts[1]) * 10) + Integer.parseInt(currentDateParts[0]);
+    // date is today or later than current date
+    if (dateSum < currentDateSum) {
+      MessageCli.BOOKING_NOT_MADE_PAST_DATE.printMessage(requestDate, systemDate);
+      return;
+    }
+
     // venue code exist
     if (!codes.containsKey(venueCode)) {
       MessageCli.BOOKING_NOT_MADE_VENUE_NOT_FOUND.printMessage(venueCode);
@@ -167,30 +181,17 @@ public class VenueHireSystem {
       return;
     }
 
-    // quantify dates in 0 = days, 1 = month, 2 = year
-    String[] dateParts = requestDate.split("/");
-    // magnify from year to day for sum value
-    int dateSum = (Integer.parseInt(dateParts[2]) * 100) + (Integer.parseInt(dateParts[1]) * 10) + Integer.parseInt(dateParts[0]);
-        System.out.println(dateSum);
-    // higher sum = later
-    String[] currentDateParts = systemDate.split("/");
-    int currentDateSum = (Integer.parseInt(currentDateParts[2]) * 100) + (Integer.parseInt(currentDateParts[1]) * 10) + Integer.parseInt(currentDateParts[0]);
-        System.out.println(currentDateSum);
-    // date is today or later than current date
-    if (dateSum < currentDateSum) {
-      MessageCli.BOOKING_NOT_MADE_PAST_DATE.printMessage(requestDate, systemDate);
-      return;
-    }
-
     // NON IDEAL CHECKS
     if ((Double.valueOf(attendees) / venue.getCapacity()) < 0.25) {
       int newAttendees = (int) (venue.getCapacity() * 0.25);
       MessageCli.BOOKING_ATTENDEES_ADJUSTED.printMessage(attendees, String.valueOf(newAttendees),
           String.valueOf(venue.getCapacity()));
-    } else if ((Integer.valueOf(attendees) / venue.getCapacity()) > 1.0) {
+        attendees = String.valueOf(newAttendees);
+    } else if ((Integer.valueOf(attendees) > venue.getCapacity())) {
       int newAttendees = venue.getCapacity();
       MessageCli.BOOKING_ATTENDEES_ADJUSTED.printMessage(attendees, String.valueOf(newAttendees),
           String.valueOf(venue.getCapacity()));
+        attendees = String.valueOf(newAttendees);
     }
 
     // SUCCESFUL BOOKING
