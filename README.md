@@ -33,7 +33,7 @@ The system is controlled through a menu of commands, which can be selected by ty
 
 1. Clone this repository to your local machine:
    ```sh
-   git clone https://github.com/buba278/venue-hire-system.git
+   git clone https://github.com/buba278/venue-hire-system
    ```
 2. Navigate to the project directory:
    ```sh
